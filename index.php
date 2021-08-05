@@ -14,7 +14,23 @@
 
 <body>
 
+    <?php
+    include("includes/header.php");
+    ?>    
+    
+    <h2>Bienvenue sur la plateforme ELO Ranking</h2>
 
+    <?php
+    include("includes/db_connection.php");
+
+    // requête préparée
+    $request = $db->prepare("INSERT INTO joueur (Pseudo) VALUES (:Pseudo)");
+    $request->bindParam(':Pseudo', $pseudo);
+
+    $pseudo = '';
+    $request->execute();
+
+    ?>
 
 
 

@@ -12,3 +12,15 @@
     background-color: #fff;
     text-decoration: none;
 }
+
+.header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 2em;
+    background-color: green;
+}
+
+.header_h1 {
+    background-color: red;
+}
