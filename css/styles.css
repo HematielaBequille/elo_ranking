@@ -15,12 +15,100 @@
 
 .header {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 2em;
     background-color: green;
+    padding: 1em 0 1em 0;
 }
 
 .header_h1 {
+    display: flex;
+    margin: 0 0 1em 0;
+}
+
+.header_h1_link {
     background-color: red;
+}
+
+.nav_menu {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav_menu_ul {
+    display: flex;
+    justify-content: center;
+    width: 50em;
+}
+
+.nav_menu_ul_li {
+    display: flex;
+    justify-content: space-evenly;
+    min-width: 25%;
+}
+
+.nav_menu_link {
+    display: flex;
+    padding: 0.4em;
+    margin: 0.3em;
+    text-align: center;
+}
+
+.h1_form {
+    text-align: center;
+    margin: 1em 0 1em 0;
+}
+
+.form_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1em 0 1em 0;
+    background-color: yellow;
+}
+
+.add_form {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    width: 18em;
+}
+
+.form_p {
+    margin: 0.5em 0 0.5em 1em;
+    font-weight: 600;
+}
+
+.choice_container {
+    display: flex;
+    margin: 0 1em 0 1em;
+}
+
+.input_container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 1em 0 1em;
+}
+
+.text_input {
+    width: 11em;
+    margin: 0.5em 0 0 0;
+    padding: 0.2em;
+    border: 1px solid black;
+}
+
+.number_input {
+    border: 1px solid black;
+    margin: 0 2em 0.5em 0;
+    padding: 0.2em;
+}
+
+.submit_button {
+    width: max-content;
+    margin: 0.5em 0 0.5em 0;
+    padding: 0.2em;
+    border: 1px solid black;
+    align-self: flex-end;
 }
