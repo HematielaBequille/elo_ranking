@@ -1,3 +1,6 @@
+<?php session_start();
+?>
+
 <!doctype html>
 <html lang="fr">
 <head>
@@ -21,7 +24,7 @@
     include_once('includes/login.php');
 
     // Si l'utilisateur existe, on affiche le menu
-    if (isset($_SESSION['login'])):
+    if (isset($_SESSION['nickname'])):
       include_once('includes/menu.php');
     endif;
     ?>    

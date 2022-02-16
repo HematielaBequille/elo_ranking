@@ -1,4 +1,3 @@
 <?php
-require('model.php');
-
-require('indexView.php');
+require_once('model.php');
+require_once('indexView.php');

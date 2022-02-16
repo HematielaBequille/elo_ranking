@@ -1,39 +1,38 @@
 <?php
-
+// Validation que tous les champs soient remplis puis que les champs mots de passe sont identiques. On vérifie ensuite si le pseudo n'est pas déjà présent en BDD. Si toutes les vérifications sont réussies, on inscrit le nouvel utilisateur
 if (isset($_POST['nickname'], $_POST['passw'], $_POST['passw_confirm'])) {
+    if ($_POST['passw'] !== $_POST['passw_confirm']) {
+        echo 'Les mots de passe ne sont pas identiques.';
+        
+    } else {
     require_once('db_connection.php');
 
-    $nicknameCheck = '';
-    $sqlQuery = $db->prepare("SELECT * FROM users WHERE nickname='".$_POST['nickname']."'");
-    $sqlQuery->execute(array(
-        'nickname' => $nicknameCheck
-    ));
-    if ($_POST['nickname'] = $nicknameCheck) {
-        echo 'erreur';
-    } 
-    else {
-        $nickname = $_POST['nickname'];
-        $passw = $_POST['passw'];
-        $passw_confirm = $_POST['passw_confirm'];
-        
-        $sqlQuery = $db->prepare('INSERT INTO users (nickname, pass_md5) VALUES (:nickname, :passw)');
-        $sqlQuery->execute(array(
-            "nickname" => $nickname,
-            "passw" => $passw
-        ));
-        header('Location: register.php');
+    $nickname = $_POST['nickname'];
+    $passw = $_POST['passw'];
+    $passw_confirm = $_POST['passw_confirm'];
+
+    $sqlQuery = $db->prepare("SELECT nickname FROM users WHERE nickname='".$_POST['nickname']."'");
+    $sqlQuery->execute();
+    $nicknameCheck = $sqlQuery->fetch(PDO::FETCH_ASSOC);
+        if (!empty($nicknameCheck)) {
+            if ($nickname == implode($nicknameCheck)) {
+                echo 'pseudo déjà pris' . '<br />' . '<a href="register.php" class="nav_menu_link">Retourner à la page d\'inscription</a>';
+                exit();
+            } 
+        exit();
+        }
+
+        else {
+            $sqlQuery = $db->prepare('INSERT INTO users (nickname, pass_md5) VALUES (:nickname, :passw)');
+            $sqlQuery->execute(array(
+                "nickname" => $nickname,
+                "passw" => $passw
+                ));
+            //header('Location: register.php');
+            echo 'Inscription réussie.';
+        }
     }
 }
-
-//$sqlQuery = 'INSERT INTO users (nickname, pass_md5) VALUES (:nickname, :pass_md5)';
-//$userRegister = $db->prepare($sqlQuery);
-
-//$userRegister->bindParam(':nickname', $_POST['nickname']);
-//$userRegister->bindParam(':pass_md5', $_POST['pass_md5']);
-//$nickname = $_POST['nickname'];
-//$pass_md5 = $_POST['pass_md5'];
-
-//$userRegister->execute();
 
 
 
@@ -44,7 +43,7 @@ if (isset($_POST['nickname'], $_POST['passw'], $_POST['passw_confirm'])) {
 
 <div class="form_container">
     <form method="post" action="register.php" class="add_form">
-        <p class="form_p">Inscription</p>
+        <p class="form_p">S'inscrire</p>
         <p class="input_container">
             <label for="nickname">Votre pseudo : </label>
             <input type="text" name="nickname" class="text_input" maxlength="19" required />
@@ -58,4 +57,3 @@ if (isset($_POST['nickname'], $_POST['passw'], $_POST['passw_confirm'])) {
         <button type="submit" class="submit_button" name="register">S'inscrire</button>
     </form>
 </div>
-<!-- action="register.php" -->
