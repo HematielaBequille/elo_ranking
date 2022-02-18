@@ -1,4 +1,5 @@
-<?php session_start();
+<?php
+session_start();
 ?>
 
 <!doctype html>
@@ -21,13 +22,12 @@
     
 
     // Formulaire de connexion
-    include_once('includes/login.php');
-
-    // Si l'utilisateur existe, on affiche le menu
-    if (isset($_SESSION['nickname'])):
-      include_once('includes/menu.php');
-      echo 'Bienvenue ' . $_SESSION['nickname'];
-    endif;
+    if (!isset($_SESSION['nickname'])) {
+        include_once('includes/login.php');
+    } else {
+        include_once('includes/menu.php');
+        echo 'Bienvenue ' . $_SESSION['nickname'];
+    }
     ?>    
 
 

@@ -41,19 +41,27 @@
     display: flex;
     justify-content: center;
     width: 50em;
+    
 }
 
 .nav_menu_ul_li {
     display: flex;
     justify-content: space-evenly;
     min-width: 25%;
+    
 }
 
 .nav_menu_link {
     display: flex;
     padding: 0.4em;
     margin: 0.3em;
+    flex-grow: 1;
+    justify-content: center;
     text-align: center;
+}
+
+.nav_menu_link:hover {
+    background-color: aquamarine;
 }
 
 .h1_form {
