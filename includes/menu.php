@@ -4,5 +4,6 @@
         <li class="nav_menu_ul_li"><a href="addTeamChoice.php" class="nav_menu_link">Ajout d'équipe</a></li>
         <li class="nav_menu_ul_li"><a href="addPlayer.php" class="nav_menu_link">Ajout de joueur</a></li>
         <li class="nav_menu_ul_li"><a href="#" class="nav_menu_link">Ajout de match</a></li>
+        <li class=""><a href="includes/disconnect.php" class="">Déconnexion</a></li>
     </ul>
 </nav>
