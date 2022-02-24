@@ -19,17 +19,20 @@ session_start();
 
     <?php
     include_once('includes/header.php');
-    
 
-    // Formulaire de connexion
+    // On affiche le formulaire de connexion, d'inscription ou le menu si l'utilisateur est connecté
     if (!isset($_SESSION['nickname'])) {
-        include_once('includes/login.php');
+      include_once('includes/login.php');
+      echo '<p class="not_member_yet">Pas encore membre ?</p>';
+      include_once('includes/register.php');
     } else {
-        include_once('includes/menu.php');
-        echo 'Bienvenue ' . $_SESSION['nickname'];
+      include_once('includes/menu.php');
+      echo 'Bienvenue ' . $_SESSION['nickname'];
     }
-    ?>    
 
+
+
+    ?>
 
 
   <!--<script src="js/scripts.js"></script>-->

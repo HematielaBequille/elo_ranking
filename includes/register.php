@@ -6,11 +6,11 @@ if (isset($_POST['nickname'], $_POST['passw'], $_POST['passw_confirm'])) {
 
     $passw = $_POST['passw'];
     $passw_hashed = password_hash($passw, PASSWORD_DEFAULT);
-    echo $passw_hashed;
-    echo '<br />';
+    //echo $passw_hashed;
+    //echo '<br />';
     $passw_confirm = $_POST['passw_confirm'];
     $passw_confirm_hashed = password_hash($passw_confirm, PASSWORD_DEFAULT);
-    echo $passw_confirm_hashed;
+    //echo $passw_confirm_hashed;
     
 
     if ($passw !== $passw_confirm) {
@@ -36,7 +36,7 @@ if (isset($_POST['nickname'], $_POST['passw'], $_POST['passw_confirm'])) {
                 "nickname" => $nickname,
                 "passw_hashed" => $passw_hashed
                 ));
-            //header('Location: register.php');
+            header('Location: ../index.php');
             echo 'Inscription réussie.';
         }
     }
@@ -44,20 +44,16 @@ if (isset($_POST['nickname'], $_POST['passw'], $_POST['passw_confirm'])) {
 ?>
 
 
-
 <div class="form_container">
-    <form method="post" action="register.php" class="add_form">
+    <form method="post" action="includes/register.php" class="add_form">
         <p class="form_p">S'inscrire</p>
-        <p class="input_container">
-            <label for="nickname">Votre pseudo : </label>
-            <input type="text" name="nickname" class="text_input" maxlength="19" required />
+            <label for="nickname" class="form_label">Votre pseudo : </label>
+            <input type="text" name="nickname" class="form_input" maxlength="19" required />
             <br />
-            <label for="password">Votre mot de passe : </label>
-            <input type="password" name="passw" class="text_input" maxlength="15" required />
-            <label for="password_confirm">Confirmation du mot de passe : </label>
-            <input type="password" name="passw_confirm" class="text_input" maxlength="15" required />
-            <br/>
-        </p>
+            <label for="password" class="form_label">Votre mot de passe : </label>
+            <input type="password" name="passw" class="form_input" maxlength="15" required />
+            <label for="password_confirm" class="form_label">Confirmation du mot de passe : </label>
+            <input type="password" name="passw_confirm" class="form_input" maxlength="15" required />
         <button type="submit" class="submit_button" name="register">S'inscrire</button>
     </form>
 </div>

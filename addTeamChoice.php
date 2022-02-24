@@ -17,7 +17,7 @@ if (isset($_POST['number'])){
     endif;
 
     echo '<div class="form_container">
-        <form method="post" action="addTeamAction.php" class="add_form">
+        <form method="post" action="addTeamChoice.php" class="add_form">
         <div class="input_container">';
 
     $i = 0;
@@ -45,7 +45,18 @@ if (isset($_POST['number'])){
 }
 
 
-
+//
+if (isset($_POST['team'])):
+    require_once('includes/db_connection.php');
+    $team = htmlspecialchars($_POST['team']);
+    $sqlQuery = $db->prepare("INSERT INTO teams (team_name) VALUES (:team)");
+    $sqlQuery->execute(array(
+        "team" => $team
+    ));
+    echo "L'équipe " . $team . " a bien été ajoutée à la base de données.";
+    echo '<br>';
+    echo "<a href='index.php' class='header_h1_link'>Revenir à la page d'accueil</a>";
+endif;
 
 
 ?>

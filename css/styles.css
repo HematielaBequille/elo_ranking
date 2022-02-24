@@ -89,6 +89,23 @@
     font-weight: 600;
 }
 
+.not_member_yet {
+    margin: 2em 0 0 1em;
+    font-weight: 700;
+    text-align: center;
+}
+
+.form_label {
+    margin: 0.5em 0 0.5em 1em;
+}
+
+.form_input {
+    margin: 0 1em 0 1em;
+    padding: 0.2em 0.3em 0.2em 0.3em;
+    border: 1px solid black;
+    border-radius: 0.5em;
+}
+
 .choice_container {
     display: flex;
     margin: 0 1em 0 1em;
@@ -115,8 +132,9 @@
 
 .submit_button {
     width: max-content;
-    margin: 0.5em 0 0.5em 0;
+    margin: 0.5em 1em 0.5em 0;
     padding: 0.2em;
     border: 1px solid black;
+    border-radius: 0.5em;
     align-self: flex-end;
 }

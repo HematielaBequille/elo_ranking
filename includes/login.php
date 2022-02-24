@@ -23,12 +23,12 @@ if (isset($_POST['nickname'], $_POST['passw'])) {
 
 
 <div class="form_container">
-    <form method="post" action="includes/login.php">
+    <form method="post" action="includes/login.php" class="add_form">
         <p class="form_p">Se connecter</p>
-        <label for="nickname" class="">Pseudo : </label>
-        <input type="text" class="" name="nickname" class="text_input" maxlength="19" required />
-        <label for="password" class="">Mot de passe : </label>
-        <input type="password" class="" name="passw" class="text_input" maxlength="15" required />
+        <label for="nickname" class="form_label">Pseudo : </label>
+        <input type="text" class="form_input" name="nickname" class="text_input" maxlength="19" required />
+        <label for="password" class="form_label">Mot de passe : </label>
+        <input type="password" class="form_input" name="passw" class="text_input" maxlength="15" required />
         <button type="submit" class="submit_button" name="connection">Connexion</button>
     </form>
 </div>
