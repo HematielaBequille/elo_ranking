@@ -6,11 +6,9 @@ if (isset($_POST['nickname'], $_POST['passw'], $_POST['passw_confirm'])) {
 
     $passw = $_POST['passw'];
     $passw_hashed = password_hash($passw, PASSWORD_DEFAULT);
-    //echo $passw_hashed;
-    //echo '<br />';
+    
     $passw_confirm = $_POST['passw_confirm'];
     $passw_confirm_hashed = password_hash($passw_confirm, PASSWORD_DEFAULT);
-    //echo $passw_confirm_hashed;
     
 
     if ($passw !== $passw_confirm) {
