@@ -64,7 +64,7 @@ if (isset($_POST['team'])):
         else:
             $sqlQuery = $db->prepare("INSERT INTO teams (team_name) VALUES (:team)");
             $sqlQuery->execute(array(
-                "team" => $team
+                'team' => $team
                 ));
         
             echo 'L\'équipe "' . $team . '" a bien été ajoutée à la base de données.';
