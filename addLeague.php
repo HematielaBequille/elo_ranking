@@ -27,8 +27,8 @@ if (isset($_POST['league'])):
     //print_r($leagueCheck);
     //echo '<br>';
 
-    if(!empty($leagueCheck)):
-        if($league == implode($leagueCheck)):
+    if (!empty($leagueCheck)):
+        if ($league == implode($leagueCheck)):
             echo 'La ligue "' . $league . '" existe déjà en base de données !' . '<br />';
         endif;
 

@@ -96,7 +96,7 @@
 }
 
 .form_label {
-    margin: 0.5em 0 0.5em 1em;
+    margin: 0.5em 0 0 0.5em;
 }
 
 .form_input {
@@ -119,7 +119,7 @@
 
 .text_input {
     width: 11em;
-    margin: 0.5em 0 0 0;
+    margin: 0.5em 0 0.5em 0.5em;
     padding: 0.2em;
     border: 1px solid black;
 }

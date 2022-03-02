@@ -4,9 +4,10 @@ include_once('index.php');
 $team_form = '
             <input type="text" name="team" class="text_input" placeholder="Nom d\'équipe" maxlength="25" required/>';
 
-
 // Récupération du nombre de la création d'équipe souhaitée, on adapte l'orthographe et on affiche le nombre d'input demandés
-if (isset($_POST['number'])){
+if (isset($_POST['number'])):
+
+    require_once('includes/db_connection.php');
 
     $number = htmlspecialchars($_POST['number']);
 
@@ -17,8 +18,9 @@ if (isset($_POST['number'])){
     endif;
 
     echo '<div class="form_container">
-        <form method="post" action="addTeam.php" class="add_form">
-        <div class="input_container">';
+            <form method="post" action="addTeam.php" class="add_form">
+                <div class="input_container">
+                    <label for="team" class="form_label">Nom de l\'équipe : </label>';
 
     $i = 0;
     while ($i < $number):
@@ -26,15 +28,27 @@ if (isset($_POST['number'])){
         $i++;
     endwhile;
 
-    echo '<button type="submit" name="" class="submit_button">Valider</button>
+
+    echo '<label for="league" class="form_label">Choix de la ligue : </label>
+          <select name="league">';
+    $sqlQuery = $db->prepare("SELECT league_name FROM leagues");
+    $sqlQuery->execute();
+    while ($data = $sqlQuery->fetch(PDO::FETCH_ASSOC)):
+        echo '<option value"">';
+        echo $data['league_name'];
+        echo '</option>';
+    endwhile;
+    echo '</select>
+        <button type="submit" name="" class="submit_button">Valider</button>
         </div>
         </form>
         </div>';
-} else {
+
+else:
     echo '<h1 class="h1_form">Formulaire de création de nouvelle(s) équipe(s)</h1>
 
     <div class="form_container">
-        <form method="post" action="addTeam.php" class="add_form">
+        <form method="POST" action="addTeam.php" class="add_form">
             <p class=form_p>Combien d`\'équipe(s) souhaitez-vous créer ?</p>
         <div class="choice_container">
             <input type="number" name="number" class="number_input" min="1" max="16" value="1" required/>
@@ -42,32 +56,35 @@ if (isset($_POST['number'])){
         </div>
         </form>
     </div>';
-}
+endif;
 
 
 // On récupère le champ rempli, on lui enlève les balises HTML & PHP puis on convertit la première lettre du nom d'équipe en majuscule, le reste en miniscule et on vérifie qu'il n'existe pas déjà en BDD puis on l'insert.
 if (isset($_POST['team'])):
 
     require_once('includes/db_connection.php');
+
     $team = strip_tags($_POST['team']);
     $team = mb_convert_case($team, MB_CASE_TITLE, "UTF-8");
+    $league = strip_tags($_POST['league']);
 
     $sqlQuery = $db->prepare("SELECT team_name FROM teams WHERE team_name='".$_POST['team']."'");
     $sqlQuery->execute();
     $teamCheck = $sqlQuery->fetch(PDO::FETCH_ASSOC);
     
-        if(!empty($teamCheck)):
+        if (!empty($teamCheck)):
             if ($team == implode($teamCheck)):
                 echo 'Nom d\'équipe déjà existant !';
             endif;
             
         else:
-            $sqlQuery = $db->prepare("INSERT INTO teams (team_name) VALUES (:team)");
+            $sqlQuery = $db->prepare("INSERT INTO teams (team_name, league) VALUES (:team, :league)");
             $sqlQuery->execute(array(
-                'team' => $team
+                'team' => $team,
+                'league' => $league
                 ));
         
-            echo 'L\'équipe "' . $team . '" a bien été ajoutée à la base de données.';
+            echo 'L\'équipe "' . $team . '" a bien été ajoutée à la base de données en ' . $league .'';
             echo '<br>';
             echo '<a href="index.php" class="header_h1_link">Revenir à la page d\'accueil</a>';
         endif;
