@@ -1,8 +1,8 @@
 <?php
 include_once('index.php');
 
-$team_form = '
-            <input type="text" name="team" class="text_input" placeholder="Nom d\'équipe" maxlength="25" required/>';
+$team_form = ' <input type="text" name="team" class="text_input" placeholder="Nom d\'équipe" maxlength="25" required/>';
+
 
 // Récupération du nombre de la création d'équipe souhaitée, on adapte l'orthographe et on affiche le nombre d'input demandés
 if (isset($_POST['number'])):
@@ -59,7 +59,8 @@ else:
 endif;
 
 
-// On récupère le champ rempli, on lui enlève les balises HTML & PHP puis on convertit la première lettre du nom d'équipe en majuscule, le reste en miniscule et on vérifie qu'il n'existe pas déjà en BDD puis on l'insert.
+// INSERTION D'UNE EQUIPE EN BASE DE DONNEES
+// On récupère les champs remplis, on lui enlève les balises HTML & PHP puis on convertit la première lettre du nom d'équipe en majuscule, le reste en miniscule et on vérifie qu'il n'existe pas déjà en BDD puis on l'insert.
 if (isset($_POST['team'])):
 
     require_once('includes/db_connection.php');
@@ -67,6 +68,9 @@ if (isset($_POST['team'])):
     $team = strip_tags($_POST['team']);
     $team = mb_convert_case($team, MB_CASE_TITLE, "UTF-8");
     $league = strip_tags($_POST['league']);
+
+    $addSuccessful = 'L\'équipe "' . $team . '" a bien été ajoutée à la base de données en ' . $league .'<br><a href="index.php" class="header_h1_link">Revenir à la page d\'accueil</a>';
+
 
     $sqlQuery = $db->prepare("SELECT team_name FROM teams WHERE team_name='".$_POST['team']."'");
     $sqlQuery->execute();
@@ -76,17 +80,62 @@ if (isset($_POST['team'])):
             if ($team == implode($teamCheck)):
                 echo 'Nom d\'équipe déjà existant !';
             endif;
-            
-        else:
-            $sqlQuery = $db->prepare("INSERT INTO teams (team_name, league) VALUES (:team, :league)");
-            $sqlQuery->execute(array(
-                'team' => $team,
-                'league' => $league
-                ));
         
-            echo 'L\'équipe "' . $team . '" a bien été ajoutée à la base de données en ' . $league .'';
-            echo '<br>';
-            echo '<a href="index.php" class="header_h1_link">Revenir à la page d\'accueil</a>';
+        else:
+            switch($league):
+                case 'Ligue Nord':
+                    $sqlQuery = $db->prepare("INSERT INTO teams (team_name, league, league_id) VALUES (:team, :league, :league_id)");
+                    $sqlQuery->execute(array(
+                        'team' => $team,
+                        'league' => $league,
+                        'league_id' => 1
+                        ));
+                    echo $addSuccessful;
+                    break;
+                    
+                case 'Ligue Est':
+                    $sqlQuery = $db->prepare("INSERT INTO teams (team_name, league, league_id) VALUES (:team, :league, :league_id)");
+                    $sqlQuery->execute(array(
+                        'team' => $team,
+                        'league' => $league,
+                        'league_id' => 2
+                        ));
+                    echo $addSuccessful;
+                    break;
+
+                case 'Ligue Ouest':
+                    $sqlQuery = $db->prepare("INSERT INTO teams (team_name, league, league_id) VALUES (:team, :league, :league_id)");
+                    $sqlQuery->execute(array(
+                        'team' => $team,
+                        'league' => $league,
+                        'league_id' => 3
+                        ));
+                    echo $addSuccessful;
+                    break;
+                        
+                case 'Ligue Sud':
+                    $sqlQuery = $db->prepare("INSERT INTO teams (team_name, league, league_id) VALUES (:team, :league, :league_id)");
+                    $sqlQuery->execute(array(
+                        'team' => $team,
+                        'league' => $league,
+                        'league_id' => 4
+                        ));
+                    echo $addSuccessful;
+                    break;
+
+                case 'Ligue Île de France':
+                    $sqlQuery = $db->prepare("INSERT INTO teams (team_name, league, league_id) VALUES (:team, :league, :league_id)");
+                    $sqlQuery->execute(array(
+                        'team' => $team,
+                        'league' => $league,
+                        'league_id' => 5
+                        ));
+                    echo $addSuccessful;
+                    break;
+
+                default:
+                    echo 'cassé';
+            endswitch;
         endif;
 endif;
 
